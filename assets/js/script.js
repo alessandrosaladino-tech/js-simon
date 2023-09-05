@@ -5,27 +5,18 @@ Ogni secondo il nostro dateToAttend dovrà scalare fino alle 9:30 di domani matt
 
 */
 
-//Creo variabile per la data odierna
-/* !!!! Sbagliato, le variabili vanno in conflitto !!!
-const todayDate = new Date();
+//Creo variabili per stabilire secondi, minuti, ore e giorni in millisecondi
 
-const second = 1000;
+const secondMs = 1000;
 
-const minute = second * 60;
+const minuteMs = secondMs * 60;
 
-const hour = minute * 60;
+const hourMs = minuteMs * 60;
 
-console.log(todayDate);
-
-const todayTime = todayDate.getTime();
-console.log(todayTime);
+const dayMs = hourMs * 24;
 
 
 
-
-const dateToAttend = new Date (2023, 8, 6, 9, 30)
-console.log(dateToAttend);
-*/
 
 
 
@@ -44,14 +35,14 @@ console.log(dateToAttend);
 
       const timeToWait = dateToAttend - todayDate;
     
-      //Creo delle variabili per stabilire i valori di secondi, minuti, ore e giorni 
-      const seconds = Math.floor((timeToWait % (1000 * 60)) / 1000);
+      //Creo delle variabili per stabilire i valori di secondi, minuti, ore e giorni in numeri interi tramite math.floor, e divido il tempo rimanente per le variabili in millisecondi per ottenere dei numeri interi decimali
+      const seconds = Math.floor((timeToWait % minuteMs) / secondMs);
 
-      const minutes = Math.floor((timeToWait % (1000 * 60 * 60)) / (1000 * 60));
+      const minutes = Math.floor((timeToWait % hourMs) / minuteMs);
 
-      const hours = Math.floor((timeToWait % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); 
+      const hours = Math.floor((timeToWait %  dayMs) / hourMs); 
      
-      const days = Math.floor(timeToWait / (1000 * 60 * 60 * 24)); //controllare perchè non conta i giorni correttamente*
+      const days = Math.floor(timeToWait / dayMs); 
     
       //Stampo in pagina il risultato , se arriva al termine stampa in pagina il messaggio.
       document.getElementById("timer").innerHTML = "Giorni:" + days  + "Ore:" + hours + "Minuti:" + minutes + "Secondi:" + seconds ;
